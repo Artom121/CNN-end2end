@@ -24,4 +24,3 @@ conda activate kidney
 ```bash
 pip install -r requirements.yaml
 ```
-
