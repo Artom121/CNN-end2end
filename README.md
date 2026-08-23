@@ -1,4 +1,4 @@
-# Kidney-Disease-Classificationclr
+# Kidney-Disease-Classification
 
 ## Workflows
 
