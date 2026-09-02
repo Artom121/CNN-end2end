@@ -1,0 +1,15 @@
+artifact_uri: file:///Users/artemvardanan/CV_end2end/CNN-end2end/mlruns/0/c27c8c68188144cfbd045e7a448e94d0/artifacts
+end_time: 1788318545392
+entry_point_name: ''
+experiment_id: '0'
+lifecycle_stage: active
+run_id: c27c8c68188144cfbd045e7a448e94d0
+run_name: incongruous-yak-621
+run_uuid: c27c8c68188144cfbd045e7a448e94d0
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1788318541949
+status: 3
+tags: []
+user_id: artemvardanan
