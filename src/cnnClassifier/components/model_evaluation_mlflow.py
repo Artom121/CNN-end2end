@@ -15,7 +15,7 @@ class Evaluation:
     def _valid_generator(self):
         datagenerator_kwargs = dict(
             rescale = 1./255,
-            validation_split=0.30
+            validation_split=self.config.params_validation_split
         )
 
         dataflow_kwargs = dict(
@@ -43,12 +43,10 @@ class Evaluation:
     def evaluation(self):
         self.model = self.load_model(self.config.path_of_model)
         self._valid_generator()
-        # self.score = model.evaluate(self.valid_generator)
         self.score = self.model.evaluate(self.valid_generator, return_dict=True)
         self.save_score()
-    
+
     def save_score(self):
-        # scores = {'loss': self.score[0], 'accuracy': self.score[1]}
         save_json(path=Path("scores.json"), data=self.score)
     
     def log_into_mlflow(self):

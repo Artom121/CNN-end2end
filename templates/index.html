@@ -848,35 +848,35 @@
             );
 
 
+            const result = await response.json();
+
             if (!response.ok) {
                 throw new Error(
-                    `Server error: ${response.status}`
+                    result?.message || `Server error: ${response.status}`
                 );
             }
-
-
-            const result = await response.json();
 
 
             /*
              * Flask returns:
              *
              * [
-             *   {"image": "Normal"}
+             *   {"image": "Normal", "confidence": 0.94}
              * ]
              */
 
             const prediction = result[0]?.image;
+            const confidence = result[0]?.confidence;
 
 
-            showResult(prediction);
+            showResult(prediction, confidence);
 
 
         } catch (error) {
 
             console.error(error);
 
-            showError();
+            showError(error.message);
 
         } finally {
 
@@ -893,7 +893,7 @@
      * Display result
      */
 
-    function showResult(prediction) {
+    function showResult(prediction, confidence) {
 
         if (!prediction) {
             showError();
@@ -903,6 +903,11 @@
 
         const isTumor =
             prediction.toLowerCase() === "tumor";
+
+        const confidenceText =
+            typeof confidence === "number"
+                ? `${Math.round(confidence * 100)}% confidence`
+                : "";
 
 
         resultContainer.className =
@@ -932,6 +937,7 @@
                     ? "The model detected features associated with a tumor."
                     : "The model classified the uploaded scan as normal."
                 }
+                ${confidenceText ? `<br><strong>${confidenceText}</strong>` : ""}
             </div>
 
         `;
@@ -943,7 +949,7 @@
      * Error state
      */
 
-    function showError() {
+    function showError(message) {
 
         resultContainer.className =
             "result-container result-warning";
@@ -964,8 +970,10 @@
             </div>
 
             <div class="result-description">
-                Something went wrong while communicating
-                with the prediction server.
+                ${
+                    message ||
+                    "Something went wrong while communicating with the prediction server."
+                }
             </div>
 
         `;

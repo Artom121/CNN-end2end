@@ -21,9 +21,10 @@ class DataIngestion:
             gdown.download(prefix+file_id, zip_download_dir)
 
             logger.info(f"Downloading data from {dataset_url} into file {zip_download_dir}")
-        
+
         except Exception as e:
-            return e
+            logger.exception(f"Failed to download data from {dataset_url}")
+            raise e
     
     def extract_zip_file(self):
         unzip_path = self.config.unzip_dir

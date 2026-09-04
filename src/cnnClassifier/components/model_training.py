@@ -18,7 +18,7 @@ class Training:
     def train_valid_generator(self):
         datagenerator_kwargs = dict(
             rescale = 1./255,
-            validation_split=0.20
+            validation_split=self.config.params_validation_split
         )
 
         dataflow_kwargs = dict(

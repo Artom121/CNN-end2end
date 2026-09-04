@@ -61,18 +61,22 @@ class ConfigurationManager:
             params_epochs=params.EPOCHS,
             params_batch_size=params.BATCH_SIZE,
             params_is_augmentation=params.AUGMENTATION,
-            params_image_size=params.IMAGE_SIZE
+            params_image_size=params.IMAGE_SIZE,
+            params_validation_split=params.VALIDATION_SPLIT
         )
 
         return training_config
 
     def get_evaluation_config(self) -> EvaluationConfig:
+        training_data = os.path.join(self.config.data_ingestion.unzip_dir, "kidney-ct-scan-image")
+
         eval_config = EvaluationConfig(
-            path_of_model = 'artifacts/training/model.h5',
-            training_data = 'artifacts/data_ingestion/kidney-ct-scan-image',
-            mlflow_uri = 'https://dagshub.com/Artom121/CNN-end2end.mlflow',
+            path_of_model = Path(self.config.training.trained_model_path),
+            training_data = Path(training_data),
+            mlflow_uri = self.config.evaluation.mlflow_uri,
             all_params = self.params,
             params_image_size = self.params.IMAGE_SIZE,
             params_batch_size = self.params.BATCH_SIZE,
+            params_validation_split = self.params.VALIDATION_SPLIT,
         )
         return eval_config

@@ -29,6 +29,7 @@ class TrainingConfig:
     params_batch_size: int
     params_is_augmentation: bool
     params_image_size: list
+    params_validation_split: float
 
 @dataclass(frozen=True)
 class EvaluationConfig:
@@ -38,3 +39,4 @@ class EvaluationConfig:
     mlflow_uri: str
     params_image_size: list
     params_batch_size: int
+    params_validation_split: float
